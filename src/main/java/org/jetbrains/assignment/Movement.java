@@ -19,4 +19,19 @@ public class Movement {
     public int getSteps() {
         return steps;
     }
+
+    public String toString() {
+        return direction + " " + steps;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Movement other) {
+            return direction == other.direction && steps == other.steps;
+        }
+        return false;
+    }
+
+    public int hashCode() {
+        return direction.hashCode() * 31 + steps;
+    }
 }

@@ -12,6 +12,14 @@ public class RobotController {
 
     @PostMapping("/locations")
     public List<Location> getLocations(@RequestBody List<Movement> movements) {
+        // Validate input
+        movements.stream()
+                .filter(movement -> movement.getDirection() == null || movement.getSteps() < 0)
+                .findAny()
+                .ifPresent(movement -> {
+                    throw new IllegalArgumentException("Invalid movement: " + movement);
+                });
+
         List<Location> locations = new ArrayList<>();
         Location currentLocation = new Location(0, 0);
         locations.add(new Location(currentLocation.getX(), currentLocation.getY())); // add initial location
@@ -31,6 +39,14 @@ public class RobotController {
 
     @PostMapping("/moves")
     public List<Movement> getMoves(@RequestBody List<Location> locations) {
+        // Validate input
+        locations.stream()
+                .filter(location -> location.getX() < 0 || location.getY() < 0)
+                .findAny()
+                .ifPresent(location -> {
+                    throw new IllegalArgumentException("Invalid location: " + location);
+                });
+
         List<Movement> movements = new ArrayList<>();
         Location currentLocation = new Location(0, 0);
         for (var location : locations) {
