@@ -1,5 +1,6 @@
 package org.jetbrains.assignment;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,12 @@ import java.util.List;
 
 @RestController
 public class RobotController {
+
+    private final ShortestPathService shortestPathService;
+
+    public RobotController(ShortestPathService shortestPathService) {
+        this.shortestPathService = shortestPathService;
+    }
 
     @PostMapping("/locations")
     public List<Location> getLocations(@RequestBody List<Movement> movements) {
@@ -61,5 +68,10 @@ public class RobotController {
             currentLocation = location;
         }
         return movements;
+    }
+
+    @PostMapping("/shortest-path")
+    public List<Location> getShortestPath(@RequestBody List<Location> locations) {
+        return shortestPathService.getShortestPath(locations);
     }
 }

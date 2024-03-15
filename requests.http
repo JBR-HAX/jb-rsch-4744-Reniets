@@ -35,3 +35,38 @@ Content-Type: application/json
     "steps": 2
   }
 ]
+
+
+### Test 1: Shortest path for 4 locations
+POST http://localhost:8080/shortest-path
+Content-Type: application/json
+
+[
+  {"x": 0, "y": 0},
+  {"x": 4, "y": 1},
+  {"x": 2, "y": 2},
+  {"x": 0, "y": 4}
+]
+
+### Test 2: Shortest path for 3 locations
+POST http://localhost:8080/shortest-path
+Content-Type: application/json
+
+[
+  {"x": 0, "y": 0},
+  {"x": 1, "y": 1},
+  {"x": 2, "y": 0}
+]
+
+### Test 3: Shortest path for 5 locations
+POST http://localhost:8080/shortest-path
+Content-Type: application/json
+
+[
+  {"x": 0, "y": 0},
+  {"x": 5, "y": 0},
+  {"x": 5, "y": 5},
+  {"x": 0, "y": 5},
+  {"x": 2, "y": 2}
+]
+
